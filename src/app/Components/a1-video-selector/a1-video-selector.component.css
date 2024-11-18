@@ -1,0 +1,50 @@
+body {
+  height: fit-content;
+  display: flex;
+  align-items: center; /* Center vertically */
+  justify-content: center; /* Center horizontally */
+  background-color: #f0f0f0; /* Optional background color */
+}
+
+.form-container {
+  display: block;
+  padding: 20px;
+  margin: auto;
+  margin-top: 30%;
+  margin-bottom: 50%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 20%;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+label {
+  margin-bottom: 10px;
+}
+
+select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
