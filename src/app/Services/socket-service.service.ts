@@ -6,7 +6,6 @@ import { io } from 'socket.io-client';
   providedIn: 'root'
 })
 export class SocketService {
-
   private socket;
 
   constructor() {
@@ -25,7 +24,7 @@ export class SocketService {
   public sendMessage(message: string) {
     console.log('Emitting message:', message);
     this.socket.emit('message', message);
-}
+  }
 
   public onMessage(): Observable<string> {
     return new Observable<string>(observer => {
@@ -35,4 +34,11 @@ export class SocketService {
     });
   }
 
+  public onGeneratedCode(): Observable<string> {
+    return new Observable<string>(observer => {
+      this.socket.on('generatedCode', (code: string) => {
+        observer.next(code);
+      });
+    });
+  }
 }

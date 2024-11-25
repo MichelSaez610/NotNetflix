@@ -17,20 +17,20 @@ export class A1VideoSelectorComponent implements OnInit {
   selectedOption: string = '';
   options: string[] = ['hola', 'que', 'tal', 'Option 4'];
 
-  messages: string[] = [];
+  generatedCode: string = '';
 
   constructor(private socketService: SocketService) {}
 
   ngOnInit(): void {
-    this.socketService.onMessage().subscribe((message: string) => {
-      this.messages.push(message);
+    this.socketService.onGeneratedCode().subscribe((code: string) => {
+      this.generatedCode = code;
     });
   }
 
   sendMessage(): void {
     if (this.selectedOption) {
         this.socketService.sendMessage(this.selectedOption);
-        console.log('Sending message:', this.selectedOption);  
+        console.log('Sending message:', this.selectedOption);
         this.selectedOption = '';
     }
 }

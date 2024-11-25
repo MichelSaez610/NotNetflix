@@ -6,5 +6,8 @@
   </select>
   <button (click)="sendMessage()">Submit</button>
 </div>
-<div *ngFor="let msg of messages">{{ msg }}</div>
+<div *ngIf="generatedCode">
+  <h2>Generated Code:</h2>
+  <p>{{ generatedCode }}</p>
+</div>
 
