@@ -1,13 +1,13 @@
 <div class="form-container">
   <h1>{{ title }}</h1>
-  <label for="options">Options:</label>
+  <label for="options">Videos:</label>
   <select id="options" [(ngModel)]="selectedOption">
     <option *ngFor="let option of options" [value]="option">{{ option }}</option>
   </select>
   <button (click)="sendMessage()">Submit</button>
 </div>
+
 <div *ngIf="generatedCode">
   <h2>Generated Code:</h2>
   <p>{{ generatedCode }}</p>
 </div>
-

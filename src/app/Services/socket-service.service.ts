@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { io } from 'socket.io-client';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ import { io } from 'socket.io-client';
 export class SocketService {
   private socket;
 
-  constructor() {
+  constructor(private http: HttpClient ) {
     this.socket = io('http://localhost:3333');
 
     // Debugging logs to check if connection is successful
@@ -40,5 +41,9 @@ export class SocketService {
         observer.next(code);
       });
     });
+  }
+
+  public getVideos(): Observable<any> {
+    return this.http.get<any>('http://localhost:3333/api/video/getAllVideos');
   }
 }

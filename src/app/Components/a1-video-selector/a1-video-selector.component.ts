@@ -15,7 +15,7 @@ export class A1VideoSelectorComponent implements OnInit {
 
   title: string = 'Select an Option';
   selectedOption: string = '';
-  options: string[] = ['hola', 'que', 'tal', 'Option 4'];
+  options: string[] = [];
 
   generatedCode: string = '';
 
@@ -24,6 +24,10 @@ export class A1VideoSelectorComponent implements OnInit {
   ngOnInit(): void {
     this.socketService.onGeneratedCode().subscribe((code: string) => {
       this.generatedCode = code;
+    });
+
+    this.socketService.getVideos().subscribe((videos: any[]) => {
+      this.options = videos.map(video => video.name);
     });
   }
 
