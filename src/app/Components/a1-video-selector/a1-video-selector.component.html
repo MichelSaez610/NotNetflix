@@ -4,5 +4,7 @@
   <select id="options" [(ngModel)]="selectedOption">
     <option *ngFor="let option of options" [value]="option">{{ option }}</option>
   </select>
-  <button (click)="onSubmit()">Submit</button>
+  <button (click)="sendMessage()">Submit</button>
 </div>
+<div *ngFor="let msg of messages">{{ msg }}</div>
+

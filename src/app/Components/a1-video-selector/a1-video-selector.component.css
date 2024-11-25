@@ -1,5 +1,5 @@
 body {
-  height: fit-content;
+  height: 500px;
   display: flex;
   align-items: center; /* Center vertically */
   justify-content: center; /* Center horizontally */
@@ -10,8 +10,7 @@ body {
   display: block;
   padding: 20px;
   margin: auto;
-  margin-top: 30%;
-  margin-bottom: 50%;
+  margin-top: 15%;
   border: 1px solid #ccc;
   border-radius: 5px;
   width: 20%;

@@ -1,21 +1,38 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { SocketService } from '../../Services/socket-service.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-a1-video-selector',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './a1-video-selector.component.html',
   styleUrl: './a1-video-selector.component.css'
 })
-export class A1VideoSelectorComponent {
+export class A1VideoSelectorComponent implements OnInit {
 
   title: string = 'Select an Option';
   selectedOption: string = '';
   options: string[] = ['hola', 'que', 'tal', 'Option 4'];
 
-  onSubmit() {
-    console.log('Selected option:', this.selectedOption);
+  messages: string[] = [];
+
+  constructor(private socketService: SocketService) {}
+
+  ngOnInit(): void {
+    this.socketService.onMessage().subscribe((message: string) => {
+      this.messages.push(message);
+    });
   }
+
+  sendMessage(): void {
+    if (this.selectedOption) {
+        this.socketService.sendMessage(this.selectedOption);
+        console.log('Sending message:', this.selectedOption);  
+        this.selectedOption = '';
+    }
 }
+}
+
