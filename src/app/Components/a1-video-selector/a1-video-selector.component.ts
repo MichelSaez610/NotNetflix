@@ -3,11 +3,12 @@ import { NgModel } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { SocketService } from '../../Services/socket-service.service';
 import { CommonModule } from '@angular/common';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-a1-video-selector',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, RouterModule],
   templateUrl: './a1-video-selector.component.html',
   styleUrl: './a1-video-selector.component.css'
 })
@@ -19,7 +20,7 @@ export class A1VideoSelectorComponent implements OnInit {
 
   generatedCode: string = '';
 
-  constructor(private socketService: SocketService) {}
+  constructor(private socketService: SocketService, private router: Router) {}
 
   ngOnInit(): void {
     this.socketService.onGeneratedCode().subscribe((code: string) => {
