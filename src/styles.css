@@ -1,1 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  font-family: system-ui, 'Roboto', sans-serif, "Arial";
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  max-height: 100dvh;
+}
+
+.bw-filter {
+  filter: grayscale(100%);
+  transition: filter 0.3s ease-in-out;
+}
+
+.controls-enabled {
+  filter: none;
+}

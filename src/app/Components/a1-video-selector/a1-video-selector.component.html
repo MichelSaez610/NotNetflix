@@ -1,4 +1,4 @@
-<div class="form-container">
+<div *ngIf="!generatedCode" id="video-selector" class="form-container">
   <h1>{{ title }}</h1>
   <label for="options">Videos:</label>
   <select id="options" [(ngModel)]="selectedOption">
@@ -7,8 +7,33 @@
   <button (click)="sendMessage()">Submit</button>
 </div>
 
-<div *ngIf="generatedCode">
-  <h2>Generated Code:</h2>
-  <p>{{ generatedCode }}</p>
-  <a routerLink="a2Page" routerLinkActive="active">Next</a>
+<nav *ngIf="generatedCode" id="video-selector" class="w-full fixed top-0 left-0 flex flex-col justify-around gap-x-4 py-4 px-6">
+  <div class="flex flex-row gap-x-4">
+    <select id="options" [(ngModel)]="selectedOption">
+      <option *ngFor="let option of options" [value]="option">{{ option }}</option>
+    </select>
+    <button class="w-fit h-fit hover:scale-105" (click)="sendMessage()">Search</button>
+  </div>
+  <div class="flex flex-row justify-center items-center gap-x-4">
+    <h2>Generated Code:</h2>
+    <p class="font-bold p-3">{{ generatedCode }}</p>
+    <a class="text-green-800 inline-flex p-2 hover:scale-105 hover:font-bold" routerLink="a2Page" target="_blank" routerLinkActive="active">
+      Validate Code
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2">
+        <path d="M4 9h8v-3.586a1 1 0 0 1 1.707 -.707l6.586 6.586a1 1 0 0 1 0 1.414l-6.586 6.586a1 1 0 0 1 -1.707 -.707v-3.586h-8a1 1 0 0 1 -1 -1v-4a1 1 0 0 1 1 -1z"></path>
+      </svg>
+    </a>
+  </div>
+</nav>
+
+
+<div *ngIf="selectedVideo" class="mx-auto w-[100dvw] h-auto fixed bottom-0 left-0">
+  <video
+    id="video"
+    class="mx-auto w-[50%] h-auto"
+    [ngClass]="{ 'bw-filter': videoGrayscale, 'controls-enabled': videoControlsEnabled }"
+    [controls]="videoControlsEnabled ? true : null">
+    <source [src]="'http://localhost:3333/videos/' + selectedVideo + '.mp4'" type="video/mp4">
+  </video>
 </div>
+

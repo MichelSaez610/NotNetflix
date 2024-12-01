@@ -1,14 +1,15 @@
-<div class="search-overlay"></div>
-<div class="scroll-cont">
-  <div class="content">
-    <div class="search">
-      <div class="search__bg"></div>
-      <div class="search__box">
-        <input type="text" class="search__input" placeholder="Search"/>
-        <div class="search__line"></div>
-        <div class="search__close"></div>
-      </div>
-    </div>
-  </div>
+<div class="h-screen w-full">
+  <form class="mt-60 w-full flex gap-x-5 justify-center align-center">
+    <input
+      class="py-2 px-4 w-64 text-3xl border-2 border-black rounded-xl justify-center align-center"
+      [(ngModel)]="userCode"
+      name="userCode"
+      placeholder="Enter the generated code"
+      autocomplete="off"
+      autofocus
+      required
+    />
+    <button (click)="validateCode()" class="py-2 px-4 border-2 border-black rounded-xl bg-blue-500 hover:bg-blue-300 hover:text-white transition-colors duration-300" type="button">Submit</button>
+  </form>
 </div>
 
