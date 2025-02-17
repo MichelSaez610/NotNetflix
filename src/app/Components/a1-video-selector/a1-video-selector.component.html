@@ -8,12 +8,6 @@
 </div>
 
 <nav *ngIf="generatedCode" id="video-selector" class="w-full fixed top-0 left-0 flex flex-col justify-around gap-x-4 py-4 px-6">
-  <div class="flex flex-row gap-x-4">
-    <select id="options" [(ngModel)]="selectedOption">
-      <option *ngFor="let option of options" [value]="option">{{ option }}</option>
-    </select>
-    <button class="w-fit h-fit hover:scale-105" (click)="sendMessage()">Search</button>
-  </div>
   <div class="flex flex-row justify-center items-center gap-x-4">
     <h2>Generated Code:</h2>
     <p class="font-bold p-3">{{ generatedCode }}</p>
@@ -27,7 +21,7 @@
 </nav>
 
 
-<div *ngIf="selectedVideo" class="mx-auto w-[100dvw] h-auto fixed bottom-0 left-0">
+<div *ngIf="selectedVideo" class="mx-auto w-[100dvw] h-auto fixed top-[20%] bottom-0 left-0">
   <video
     id="video"
     class="mx-auto w-[50%] h-auto"
