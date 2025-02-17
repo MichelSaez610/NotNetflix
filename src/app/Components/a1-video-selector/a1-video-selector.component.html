@@ -24,7 +24,7 @@
 <div *ngIf="selectedVideo" class="mx-auto w-[100dvw] h-auto fixed top-[20%] bottom-0 left-0">
   <video
     id="video"
-    class="mx-auto w-[50%] h-auto"
+    class="mx-auto w-[50%] h-auto max-h-96"
     [ngClass]="{ 'bw-filter': videoGrayscale, 'controls-enabled': videoControlsEnabled }"
     [controls]="videoControlsEnabled ? true : null">
     <source [src]="'http://localhost:3333/videos/' + selectedVideo + '.mp4'" type="video/mp4">
