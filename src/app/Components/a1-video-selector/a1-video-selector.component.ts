@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import {SocketService} from '../../socket.service';
+import { SocketService } from '../../socket.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-a1-video-selector',
@@ -21,16 +20,25 @@ export class A1VideoSelectorComponent implements OnInit {
   generatedCode: string = '';
   videoControlsEnabled: boolean = false;
   videoGrayscale: boolean = true;
+  isPremium: boolean = false;
 
   constructor(private socketService: SocketService) {}
 
   ngOnInit(): void {
+    // Check if user is premium
+    this.isPremium = this.socketService.getPremiumStatus();
+
     this.socketService.onGeneratedCode().subscribe((code: string) => {
       this.generatedCode = code;
     });
 
+    // Fetch videos based on premium status
     this.socketService.getVideos().subscribe((videos: any[]) => {
-      this.options = videos.map((video) => video.name);
+      if (this.isPremium) {
+        this.options = videos.map((video) => video.name); // Show all videos
+      } else {
+        this.options = videos.slice(0, 1).map((video) => video.name); // Show only the first video
+      }
     });
 
     this.socketService.onCodeValidationResult().subscribe((response: any) => {
@@ -55,4 +63,3 @@ export class A1VideoSelectorComponent implements OnInit {
     }
   }
 }
-

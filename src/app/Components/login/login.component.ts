@@ -1,32 +1,34 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../Auth.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   standalone: true,
-  imports: [FormsModule, RouterModule, CommonModule ],
+  imports: [FormsModule, RouterModule, CommonModule],
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {username: string = '';
+export class LoginComponent {
+  username: string = '';
   password: string = '';
   errorMessage: string = '';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   login() {
-    // A simple static username and password for demo purposes
-    const validUsername = 'user';
-    const validPassword = 'password';
-
-    if (this.username === validUsername && this.password === validPassword) {
-      // Simulate successful login
-      alert('Login successful!');
-      this.router.navigateByUrl('/VideoSelector')
-    } else {
-      this.errorMessage = 'Invalid username or password';
-    }
+    // Call the login method from AuthService to authenticate the user
+    this.authService.login(this.username, this.password).subscribe(
+      (response) => {
+        // If login is successful, navigate to VideoSelector page
+        this.router.navigateByUrl('/VideoSelector');
+      },
+      (error) => {
+        // If login fails, show error message
+        this.errorMessage = error.error?.message || 'Invalid username or password';
+      }
+    );
   }
 }

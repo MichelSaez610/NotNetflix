@@ -13,7 +13,7 @@ interface AuthResponse {
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3080/api'; // Your backend API URL
+  private apiUrl = 'http://localhost:3333/api'; // Your backend API URL
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
   private isPremiumSubject = new BehaviorSubject<boolean>(false);  // Track if user is premium
   public isAuthenticated = this.isAuthenticatedSubject.asObservable();
@@ -41,7 +41,7 @@ export class AuthService {
   login(username: string, password: string): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.apiUrl}/login`, { username, password }, { withCredentials: true }).pipe(
       tap((response) => {
-        // Store the JWT token and user information on successful login
+        // Store the JWT token on successful login
         if (response.token) {
           localStorage.setItem('token', response.token);
           this.isAuthenticatedSubject.next(true);
@@ -54,7 +54,7 @@ export class AuthService {
   }
 
   logout(): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.apiUrl}/logout`, {}, { withCredentials: true }).pipe(
+    return this.http.post<AuthResponse>(`${this.apiUrl}/api/logout`, {}, { withCredentials: true }).pipe(
       tap(() => {
         localStorage.removeItem('token');
         this.isAuthenticatedSubject.next(false);
@@ -72,7 +72,7 @@ export class AuthService {
     // Fetch user info to check premium status (if available in your backend)
     const token = localStorage.getItem('token');
     if (token) {
-      this.http.get<AuthResponse>(`${this.apiUrl}/user`, { headers: { Authorization: `Bearer ${token}` } }).subscribe(
+      this.http.get<AuthResponse>(`${this.apiUrl}/api/users`, { headers: { Authorization: `Bearer ${token}` } }).subscribe(
         (response) => {
           if (response.isPremium !== undefined) {
             this.isPremiumSubject.next(response.isPremium);
